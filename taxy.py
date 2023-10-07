@@ -13,13 +13,10 @@ alpha = 0.1
 gamma = 0.6
 epsilon = 0.1
 
-all_epochs = []
-all_penalties = []
-
 for i in range(training_episodes):
     state = env.reset()[0]
     done = False
-    penalties, reward, = 0, 0
+    reward = 0
     
     while not done:
         if random.uniform(0, 1) < epsilon:
@@ -35,16 +32,14 @@ for i in range(training_episodes):
         new_value = (1 - alpha) * old_value + alpha * (reward + gamma * next_max)
         q_table_spaces[state, action] = new_value
 
-        if reward == -10: 
-            penalties += 1
-
         state = next_state
         
     if i % 1000 == 0: print(f"Счетчик: {i}")
 
-print("Обучение завершено. Визуализируем результаты\n")
+print("Обучение завершено. Визуализируем результаты за 100 эпизодов\n")
+total_epochs, total_penalties = 0, 0
 
-for _ in range(episodes):
+for i in range(10):
     state = env.reset()[0]
     epochs, penalties, reward = 0, 0, 0
     
@@ -55,6 +50,12 @@ for _ in range(episodes):
         state, reward, done, _, info = env.step(action)
         if reward == -10:
             penalties += 1
-        epochs += 1
+        epochs += 1    
         print(env.render())
-        sleep(0.15)
+        sleep(0.2)
+
+    total_penalties += penalties
+    total_epochs += epochs
+
+print(f"Среднее количество шагов за эпизод: {total_epochs / 10}")
+print(f"Средний штраф за эпизод: {total_penalties / 10}")
