@@ -1,0 +1,5 @@
+gym==0.26.2
+gym-notices==0.0.8
+importlib-metadata==6.8.0
+numpy==1.26.0
+zipp==3.17.0
