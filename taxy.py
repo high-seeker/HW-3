@@ -36,7 +36,7 @@ for i in range(training_episodes):
         
     if i % 1000 == 0: print(f"Счетчик: {i}")
 
-print("Обучение завершено. Визуализируем результаты за 100 эпизодов\n")
+print("Обучение завершено. Визуализируем результаты за 10 эпизодов\n")
 total_epochs, total_penalties = 0, 0
 
 for i in range(10):
